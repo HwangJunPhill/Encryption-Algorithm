@@ -22,7 +22,7 @@
     <ProjectGuid>{A6B4E1F1-5566-4D5E-B072-32C5F3AF955C}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>AES_Rijndael</RootNamespace>
-    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.14393.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -143,6 +143,12 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="MixColumns.h" />
+    <ClInclude Include="Rijndael.h" />
+    <ClInclude Include="ShiftRows.h" />
+    <ClInclude Include="SubBytes.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

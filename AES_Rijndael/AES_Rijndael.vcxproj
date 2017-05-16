@@ -145,6 +145,7 @@
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Exception.h" />
     <ClInclude Include="MixColumns.h" />
     <ClInclude Include="Rijndael.h" />
     <ClInclude Include="ShiftRows.h" />

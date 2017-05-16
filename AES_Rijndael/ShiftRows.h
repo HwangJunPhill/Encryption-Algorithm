@@ -1,42 +1,77 @@
 #pragma once
+#include "Exception.h"
 #include <cstdint>
-
+#include <array>
+////////////////////////////////////////////////////////////////////////////////////////////////////
 namespace AES
 {
 	namespace RijndaelPart
 	{
-		struct Shift
+		struct ShiftRows
 		{
-			template<typename T>
-			void operator()(T* data, size_t size, size_t move)//move left
+			template<typename Type, size_t size>
+			void operator()(std::array<Type, size>& data)
 			{
-				if (move == 0) return;
+				if (size % 4 != 0) 
+					throw Exception(Exception::ErrorCode::BadSize);
+				
+				std::array<std::array<Type, size / 4>, 4> quarter;
+				size_t count=0;
+				for (auto& array : quarter)
+					for (auto& var : array)
+						var = data[count++];
 
-				T tmp = data[0];
+				for (int i = 0; i < 4; i++)
+					Shift(quarter[i], i);
 
-				for (size_t i = 0; i < size - 1; i++)
-					data[i] = data[i + 1];
+				count = 0;
+				for (auto& array : quarter)
+					for (auto& var : array)
+						data[count++] = var;
 
-				data[size - 1] = tmp;
+				return;
+			}
 
-				Shift(data, size, move - 1);
+			template<typename Type, size_t size>
+			void Shift(std::array<Type, size>& data, size_t loop = 1)
+			{
+				for (size_t i = 0; i < loop; i++)
+					for (size_t j = 0; j < size - 1; j++)
+						std::swap(data[j], data[j + 1]);
 			}
 		};
 
-		struct ShiftRows :protected Shift
+		struct InvertedShiftRows
 		{
-			void operator()(uint8_t* data)	//16byte//aes-128bit
+			template<typename Type, size_t size>
+			void operator()(std::array<Type, size>& data)
 			{
-				for (size_t i = 0; i < 4; i++)
-					Shift()(data + (i * 4), 4, i);
+				if (size % 4 != 0) 
+					throw Exception(Exception::ErrorCode::BadSize);
+				
+				std::array<std::array<Type, size / 4>, 4> quarter;
+				size_t count=0;
+				for (auto& array : quarter)
+					for (auto& var : array)
+						var = data[count++];
+
+				for (int i = 0; i < 4; i++)
+					Shift(quarter[i], i);
+
+				count = 0;
+				for (auto& array : quarter)
+					for (auto& var : array)
+						data[count++] = var;
+
+				return;
 			}
-		};
-		struct InvertedShiftRows :protected Shift
-		{
-			void operator()(uint8_t* data)	//16byte//aes-128bit
+
+			template<typename Type, size_t size>
+			void Shift(std::array<Type, size>& data, size_t loop = 1)
 			{
-				for (size_t i = 0; i < 4; i++)
-					Shift()(data + (i * 4), 4, 4 - i);
+				for (size_t i = 0; i < loop; i++)
+					for (size_t j = size - 1; j > 0; j--)
+						std::swap(data[j], data[j - 1]);
 			}
 		};
 	}

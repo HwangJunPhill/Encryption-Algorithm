@@ -5,7 +5,8 @@
 #include <stdint.h>
 
 using namespace std;
-class encrypt {
+class encrypt 
+{
 private:
 	int key;
 	int s_box[256] = {
@@ -28,9 +29,8 @@ private:
 		0x8c, 0xa1, 0x89, 0x0d, 0xbf, 0xe6, 0x42, 0x68, 0x41, 0x99, 0x2d, 0x0f, 0xb0, 0x54, 0xbb, 0x16 };// f
 
 public:
-	encrypt(int param)
+	encrypt(int param): key(param)
 	{
-		key = param;
 	}
 
 	unsigned char ensubBytes(_In_ unsigned char value)
@@ -49,10 +49,12 @@ public:
 
 	void addroundkey(unsigned char plain[])
 	{
+		//split for four letters
 		for (int i = 0; i < strlen((char*)plain) / 4; i++)
 		{
 			for (int j = 1; j < 5; j++)
 			{
+				//calculate
 				plain[4 * i + (j - 1)] = plain[4 * (j - 1) + i] ^ (4 * 4 * key + 4 * i + j - 1);
 			}
 		}
@@ -61,6 +63,7 @@ public:
 
 	void shiftrow(unsigned char plain[])
 	{
+		//split for four letters
 		for (int i = 1; i < strlen((char*)plain) / 4; i++)
 		{
 			int s = 0;

@@ -54,7 +54,7 @@ namespace AES
 			}
 		};
 
-		class InvertedShiftRows :public ShiftRows
+		class InverseShiftRows :public ShiftRows
 		{
 		public:
 			template<typename Container>

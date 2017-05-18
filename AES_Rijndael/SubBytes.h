@@ -10,19 +10,19 @@ namespace AES
 			static const uint8_t sBoxTable[256];
 
 		public:
-			uint8_t operator()(uint8_t data)
+			uint8_t operator()(const uint8_t data) const
 			{
 				return sBoxTable[data];
 			}
 		};
-		class InvertedSubBytes
+		class InverseSubBytes
 		{
-			static const uint8_t invertedSBoxTable[256];
+			static const uint8_t inverseSBoxTable[256];
 
 		public:
-			uint8_t operator()(uint8_t data)
+			uint8_t operator()(const uint8_t data) const
 			{
-				return invertedSBoxTable[data];
+				return inverseSBoxTable[data];
 			}
 		};
 
@@ -60,7 +60,7 @@ namespace AES
 			0x8C, 0xA1, 0x89, 0x0D, 0xBF, 0xE6, 0x42, 0x68,
 			0x41, 0x99, 0x2D, 0x0F, 0xB0, 0x54, 0xBB, 0x16
 		};
-		const uint8_t InvertedSubBytes::invertedSBoxTable[256] = {
+		const uint8_t InverseSubBytes::inverseSBoxTable[256] = {
 			0x52, 0x09, 0x6A, 0xD5, 0x30, 0x36, 0xA5, 0x38,
 			0xBF, 0x40, 0xA3, 0x9E, 0x81, 0xF3, 0xD7, 0xFB,
 			0x7C, 0xE3, 0x39, 0x82, 0x9B, 0x2F, 0xFF, 0x87,

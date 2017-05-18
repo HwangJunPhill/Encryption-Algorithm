@@ -5,7 +5,7 @@
 int main()
 {
 	AES::RijndaelPart::ShiftRows ShiftRows;
-	AES::RijndaelPart::InvertedShiftRows InvertedShiftRows;
+	AES::RijndaelPart::InverseShiftRows InverseShiftRows;
 
 	std::array<int, 24> test;
 	
@@ -21,7 +21,7 @@ int main()
 
 		std::cout << std::endl;
 
-		test=InvertedShiftRows(test);
+		test=InverseShiftRows(test);
 
 		for (auto& var : test)
 			std::cout << var << ' ';

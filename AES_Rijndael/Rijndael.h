@@ -10,8 +10,8 @@ namespace AES
 	private:
 		RijndaelPart::SubBytes SubBytes;
 		RijndaelPart::InvertedSubBytes InvertedSubBytes;
-		RijndaelPart::ShiftRows ShiftRows;
-		RijndaelPart::InvertedShiftRows InvertedShiftRows;
+		//RijndaelPart::ShiftRows ShiftRows;
+		//RijndaelPart::InvertedShiftRows InvertedShiftRows;
 		
 	};
 }

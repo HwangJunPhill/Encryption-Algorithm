@@ -5,19 +5,21 @@ namespace AES
 {
 	namespace RijndaelPart
 	{
-		struct SubBytes
+		class SubBytes
 		{
 			static const uint8_t sBoxTable[256];
 
+		public:
 			uint8_t operator()(uint8_t data)
 			{
 				return sBoxTable[data];
 			}
 		};
-		struct InvertedSubBytes
+		class InvertedSubBytes
 		{
 			static const uint8_t invertedSBoxTable[256];
 
+		public:
 			uint8_t operator()(uint8_t data)
 			{
 				return invertedSBoxTable[data];

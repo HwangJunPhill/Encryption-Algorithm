@@ -8,20 +8,26 @@ int main()
 	AES::RijndaelPart::InvertedShiftRows InvertedShiftRows;
 
 	std::array<int, 24> test;
-
+	
 	int i = 0;
 	for (auto& var : test)
 		var = i++;
 
-	ShiftRows(test);
+	try {
+		test=ShiftRows(test);
 
-	for (auto& var : test)
-		std::cout << var << ' ';
+		for (auto& var : test)
+			std::cout << var << ' ';
 
-	std::cout << std::endl;
+		std::cout << std::endl;
 
-	InvertedShiftRows(test);
+		test=InvertedShiftRows(test);
 
-	for (auto& var : test)
-		std::cout << var << ' ';
+		for (auto& var : test)
+			std::cout << var << ' ';
+	}
+	catch (AES::Exception e)
+	{
+		std::cerr << e.What() << std::endl;
+	}
 }

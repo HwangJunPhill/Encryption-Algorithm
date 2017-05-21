@@ -21,25 +21,32 @@ namespace AES
 			template<typename Container>
 			Container Shifts(const Container& container) const
 			{
-				if (container.size() % 4 != 0)
+				auto size = container.size();
+				if (size % 4 != 0)
 					throw Exception(Exception::ErrorCode::BadSize);
 
 				std::array<std::vector<uint8_t>, 4> array;
+
 				size_t count = 0;
-				for (auto& quarter : array)
-					for (size_t i = 0; i < (container.size() / 4); i++)
-						quarter.push_back(container[count++]);
+				for (const auto& var : container)
+				{
+					array[count].push_back(var);
+
+					if (array[count].size() == (size / 4))
+						count++;
+				}
 
 				count = 0;
 				for (auto& quarter : array)
 					Shift(quarter, count++);
-
+				
 				Container ret(container);
-
+				
 				count = 0;
+				auto iter = ret.begin();
 				for (const auto& quarter : array)
 					for (const auto& var : quarter)
-						ret[count++] = var;
+						*(iter++) = var;
 
 				return ret;
 			}

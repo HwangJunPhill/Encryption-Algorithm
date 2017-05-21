@@ -1,17 +1,18 @@
 #include <iostream>
 #include <cstdint>
 #include "Rijndael.h"
+#include <vector>
 
 int main()
 {
 	AES::RijndaelPart::ShiftRows ShiftRows;
 	AES::RijndaelPart::InverseShiftRows InverseShiftRows;
 
-	std::array<int, 24> test;
+	std::vector<int> test;
 	
-	int i = 0;
-	for (auto& var : test)
-		var = i++;
+	for (int i = 0; i < 16; i++)
+		test.push_back(i);
+	
 
 	try {
 		test=ShiftRows(test);
